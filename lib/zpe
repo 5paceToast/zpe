@@ -1,0 +1,26 @@
+# Pure frontend, allowed calls:
+# edit
+# exec
+# load
+# new
+# up/down
+zpe() {
+  [[ $# -ge 1 ]] || return 1
+  subcmd=$1
+  shift
+
+  : ${ZPE_DIR:=~/.config/zpe}
+  mkdir -p $ZPE_DIR
+  [[ -r $ZPE_DIR/zpe.conf ]] || touch $ZPE_DIR/zpe.conf
+
+  case $subcmd in
+    edit) zpe-edit $@ ;;
+    exec) zpe-exec $@ ;;
+    load) zpe-load $@ ;;
+    new)  zpe-new  $@ ;;
+    up|down)
+        [[ $# -ge 1 ]] || return 2
+        zpe-load $1 $subcmd ;;
+    *) zpe-log "[error] Invalid subcommand $subcmd!"
+  esac
+}

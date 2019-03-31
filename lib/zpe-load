@@ -1,0 +1,18 @@
+# Loads settings, either global or of a specific project
+# $# -eq 0: load global settings
+# $1: (optional) load $1.env (or $1.$2) instead of global config
+# $2: (optional) use .$2 instead of .env
+zpe-load() {
+  local file=zpe.conf
+  local zped=$ZPE_DIR
+
+  [[ -r $zped/$1.env ]] && file=$1.env
+  [[ -r $zped/$1.$2 ]]  && file=$1.$2
+
+  if [[ ! -r $zped/$file ]]; then
+    zpe-log "[warning] Could not find $file!"
+    return 1
+  fi
+
+  . $zped/$file
+}

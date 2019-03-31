@@ -1,0 +1,4 @@
+# Log everything to stderr
+zpe-log() {
+  echo $@ >&2
+}

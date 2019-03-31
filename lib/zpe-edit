@@ -1,0 +1,15 @@
+# Edit the configuration of name
+# $1: name
+# $2: (optional) extension, defaults to .up
+zpe-edit() {
+  [[ $# -ge 1 ]] || return 1
+  local dir=$ZPE_DIR
+  local ext=${2:-up}
+  local name=$1
+
+  if [[ ! -w $dir/$name.$ext ]]; then
+    zpe-log "[error] Could not find writable $name.$ext"
+    return 1
+  fi
+  $EDITOR $dir/$name.$ext
+}

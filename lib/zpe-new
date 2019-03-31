@@ -1,0 +1,20 @@
+# Register a new project
+# $1 is the name
+# $2 is the path to it, defaults to $PWD
+zpe-new() {
+  [[ $# -ge 1 ]] || return 1
+  local dir=$ZPE_DIR
+  local name=$1
+  local proj=$PWD:A
+  [[ -d $2 ]] && proj=$2:A
+
+  if [[ -r $dir/$name.env ]]; then
+    zpe-log "[error] $name already exists"
+    return 1
+  fi
+
+  printf '#vim: ft=zsh\n' >$dir/$name.env >$dir/$name.up >$dir/$name.down
+  printf '%s_dir=%s\n' $name $proj >> $dir/$name.env
+  printf 'zpe load %s\n' $name     >> $dir/$name.up
+  printf 'cd $%s_dir\n' $name      >> $dir/$name.up
+}

@@ -1,0 +1,22 @@
+# We want to execute a command in the context of a project
+# This does *not* have to be the current project
+# $1 is the project, $@ is the stuff to execute
+# example: zpe exec projdep git pull
+zpe-exec() {
+  [[ $# -gt 1 ]] || return 1
+  local name=$1
+  shift
+
+  zpe-load $name
+  local dn=${name}_dir
+  if [[ -n ${(P)dn} ]]; then
+    pushd ${(P)dn}
+  elif (( $+commands[sk] )) && zpe-load && [[ -n $ZPE_WRK ]]; then
+    zpe-log "[warning] Sorry! This feature isn't done yet!"
+  else
+    zpe-log "[error] $dn is not defined, could not run scripts!"
+  fi
+
+  $@
+  popd
+}
