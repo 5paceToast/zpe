@@ -1,0 +1,57 @@
+= Z Project Environments
+
+== A manager for your messy projects
+
+=== Introduction
+I have something like 30-50 repositories in my `~/Workspace`.
+That is absolutely awful.
+At some point, I tried to subdivide them into "categories" like "dev", "sys", "alpine" and so on.
+That didn't help much.
+
+I clearly needed something to help me navigate around them, in a sort of "bookmark"ish way, and handle initial setup.
+So I accidentally wrote the SysV RC in zsh.
+
+=== Installation
+1. Acquire `zpe.zwc`
+  a. Download it from the GitHub releases page
+  b. Use gmake with zsh installed to generate it from source
+2. Store it in a consistent location
+3. Add the file to your `fpath` (example: `fpath+=( ~/.zsh/zpe.zwc )`)
+4. Autoload all the contents of the digest file (example: `autoload -w ~/.zsh/zpe.zwc`)
+
+NOTE: If you're using the latest version of toasty-zsh, you can simply drop `zpe.zwc` into your `$zd/digests` folder.
+
+=== Usage
+`zpe` is the main function name.
+Everything is done through subcommands.
+
+`zpe new`::
+Creates a new project environment.
+Effectively, this creates three new files inside `$ZPE_DIR` (`name.up`, `name.down` and `name.env`), and populates them with defaults.
+You also can optionally pass it a directory for the project in question.
+It defaults to the current working directory.
+Example: `zpe new tzsh ~/Workspace/sys/toasty-zsh`
+
+`zpe edit`::
+Edits one of the three files created by `zpe new`.
+Defaults to editing `name.up`.
+Pass an extra parameter to give the suffix to edit.
+Example: `zpe edit tzsh env`
+
+`zpe load`::
+Loads one of the following:
+- global configuration (`zpe.conf`)
+- `name.env` if only name is passed
+- `name.ext` if name and an ext is passed
++
+Example: `zpe load tzsh down`
+
+`zpe exec`::
+Runs a command in the context of a project.
+Example: `zpe exec tzsh git pull`
++
+WARNING: The parsing is simplistic: `$1` is the project name and the other arguments are evaluated as-is.
+
+`zpe up|down`::
+Convenience shortcuts for `zpe load $1 up|down`.
+Example: `zpe up tzsh`.
