@@ -46,6 +46,11 @@ Loads one of the following:
 +
 Example: `zpe load tzsh down`
 
+`zpe ls|list`::
+Lists the projects in their "callable" form.
+Does not take any arguments.
+Usually sorted, but not guaranteed to be such.
+
 `zpe exec`::
 Runs a command in the context of a project.
 Example: `zpe exec tzsh git pull`

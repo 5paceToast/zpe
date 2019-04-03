@@ -1,0 +1,5 @@
+# lists all the known projects
+zpe-list() {
+  projects=( $ZPE_DIR/*.env(:t:r) )
+  print -l $projects
+}

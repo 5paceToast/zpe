@@ -17,6 +17,7 @@ zpe() {
     edit) zpe-edit $@ ;;
     exec) zpe-exec $@ ;;
     load) zpe-load $@ ;;
+    ls|list) zpe-list ;;
     new)  zpe-new  $@ ;;
     up|down)
         [[ $# -ge 1 ]] || return 2
