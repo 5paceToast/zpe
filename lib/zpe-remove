@@ -1,0 +1,14 @@
+# removes a named project
+# actually just removes $name.*
+zpe-remove() {
+  [[ $# -ge 1 ]] || return 1
+  dir=$ZPE_DIR
+  proj=$1
+
+  if [[ ! -w $dir/$proj.env ]]; then
+    zpe-log "[error] $dir/$proj.env either doesn't exist, or isn't writable"
+    return 1
+  fi
+
+  rm $dir/$proj.*
+}

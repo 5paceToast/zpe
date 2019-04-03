@@ -19,6 +19,7 @@ zpe() {
     load) zpe-load $@ ;;
     ls|list) zpe-list ;;
     new)  zpe-new  $@ ;;
+    rm) zpe-remove $@ ;;
     up|down)
         [[ $# -ge 1 ]] || return 2
         zpe-load $1 $subcmd ;;

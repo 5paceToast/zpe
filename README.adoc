@@ -57,6 +57,11 @@ Example: `zpe exec tzsh git pull`
 +
 WARNING: The parsing is simplistic: `$1` is the project name and the other arguments are evaluated as-is.
 
+`zpe rm`::
+Removes a project.
+More precisely, it removes `$1.*` from `$ZPE_DIR`.
+Example: `zpe rm tzsh`
+
 `zpe up|down`::
 Convenience shortcuts for `zpe load $1 up|down`.
 Example: `zpe up tzsh`.
