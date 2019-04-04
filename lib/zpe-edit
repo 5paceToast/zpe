@@ -11,5 +11,5 @@ zpe-edit() {
     zpe-log "[error] Could not find writable $name.$ext"
     return 1
   fi
-  $EDITOR $dir/$name.$ext
+  ${EDITOR:-vi} $dir/$name.$ext
 }
