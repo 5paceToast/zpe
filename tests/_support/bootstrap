@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+export ZPE_DIR=$PWD/tests/_output
+mkdir -p $ZPE_DIR
+
+fpath+=( $PWD/zpe.zwc )
+autoload -w $PWD/zpe.zwc

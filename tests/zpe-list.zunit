@@ -1,0 +1,22 @@
+#!/usr/bin/env zunit
+
+@setup {
+    touch $ZPE_DIR/{a,b}.env
+}
+
+@teardown {
+    rm -f $ZPE_DIR/{a,b}.env
+}
+
+@test 'List-Single' {
+    run zpe-list
+    assert ${lines[1]} equals 'a'
+}
+
+@test 'List-Multiple' {
+    run zpe-list
+    assert ${lines[1]} equals 'a'
+    assert ${lines[2]} equals 'b'
+}
+
+# vim: ft=zsh
