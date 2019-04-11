@@ -1,0 +1,36 @@
+#!/usr/bin/env zunit
+
+@setup {
+  touch $ZPE_DIR/a.{env,up,down,random}
+  touch $ZPE_DIR/c.env
+  chmod -w $ZPE_DIR/c.env
+}
+
+@teardown {
+  # in case zpe-remove does fail...
+  rm -f $ZPE_DIR/a.{env,up,down,random}
+  rm -f $ZPE_DIR/c.env
+}
+
+@test 'Remove' {
+  run zpe-remove a
+
+  for ext in env up down random
+  do
+    [[ -f $ZPE_DIR/a.$ext ]] && fail "a.$ext still exists"
+  done
+  pass
+}
+
+@test 'Remove-Missing' {
+  run zpe-remove b
+
+  assert $state equals 1
+}
+
+@test 'Remove-Readonly' {
+  run zpe-remove c
+
+  # if the user sets it to readonly, they don't want it removed
+  assert $state equals 1
+}
