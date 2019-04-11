@@ -1,0 +1,16 @@
+# copies a project
+# a bit more complex than may initially seem, due to details
+# copies $1 to $2
+zpe-copy() {
+  [[ $# -ge 2 ]] || return 1
+  local old=$1
+  local new=$2
+
+  [[ -r $ZPE_DIR/$old.env ]] || return 1
+  for ext in $ZPE_DIR/$old.*(:t:e); do
+    sed -e "s|^${old}_|${new}_|" \
+        -e "s|zpe load $old|zpe load $new|" \
+        -e "s|\$${old}_|\$${new}_|" \
+      < $ZPE_DIR/$old.$ext > $ZPE_DIR/$new.$ext
+  done
+}

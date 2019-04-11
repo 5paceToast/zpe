@@ -14,6 +14,7 @@ zpe() {
   [[ -r $ZPE_DIR/zpe.conf ]] || touch $ZPE_DIR/zpe.conf
 
   case $subcmd in
+    cp|copy) zpe-copy $@ ;;
     edit) zpe-edit $@ ;;
     exec) zpe-exec $@ ;;
     load) zpe-load $@ ;;

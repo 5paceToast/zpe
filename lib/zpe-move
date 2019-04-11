@@ -1,16 +1,10 @@
 # renames a project
-# a bit more complex than may initially seem, due to details
+# effectively a cp followed by a rm
 # renames from $1 to $2
 zpe-move() {
-  [[ $# -ge 2 ]] || return 100
+  [[ $# -ge 2 ]] || return 1
   local old=$1
   local new=$2
-
-  [[ -r $ZPE_DIR/$old.env ]] || return 101
-  for ext in $ZPE_DIR/$old.*(:t:e); do
-    sed -e "s|${old}_dir|${new}_dir|" -e "s|zpe load $old|zpe load $new|" \
-      < $ZPE_DIR/$old.$ext > $ZPE_DIR/$new.$ext
-  done
-
+  zpe-copy $old $new
   zpe-remove $old
 }
