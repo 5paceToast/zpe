@@ -1,0 +1,42 @@
+#!/usr/bin/env zunit
+
+@setup {
+  echo 'a_dir=value_dir'        > $ZPE_DIR/a.env
+  echo 'a_custom=value_custom' >> $ZPE_DIR/a.env
+
+  echo 'zpe load a'      > $ZPE_DIR/a.up
+  echo 'echo $a_dir'    >> $ZPE_DIR/a.up
+  echo 'echo $a_custom' >> $ZPE_DIR/a.up
+}
+
+@teardown {
+  rm -f $ZPE_DIR/a.{env,up}
+}
+
+@test 'Copy-Sanity' {
+  . $ZPE_DIR/a.env
+  assert $a_dir    same_as 'value_dir'
+  assert $a_custom same_as 'value_custom'
+}
+
+@test 'Copy' {
+  run zpe-copy a b
+  assert $state equals 0
+
+  run cat $ZPE_DIR/b.env
+  assert ${lines[1]} same_as 'b_dir=value_dir'
+  assert ${lines[2]} same_as 'b_custom=value_custom'
+
+  run cat $ZPE_DIR/b.up
+  assert ${lines[1]} same_as 'zpe load b'
+  assert ${lines[2]} same_as 'echo $b_dir'
+  assert ${lines[3]} same_as 'echo $b_custom'
+
+  . $ZPE_DIR/a.env
+  . $ZPE_DIR/b.env
+
+  assert $a_dir    is_not_empty
+  assert $a_custom is_not_empty
+  assert $a_dir    same_as $b_dir
+  assert $a_custom same_as $b_custom
+}
