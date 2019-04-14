@@ -11,6 +11,7 @@
 
 @teardown {
   rm -f $ZPE_DIR/a.{env,up}
+  rm -f $ZPE_DIR/b.{env,up}
 }
 
 @test 'Copy-Sanity' {
