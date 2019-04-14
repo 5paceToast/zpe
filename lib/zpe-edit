@@ -7,9 +7,13 @@ zpe-edit() {
   local ext=${2:-up}
   local name=$1
 
-  if [[ ! -w $dir/$name.$ext ]] && [[ ! -r $dir/$name.env ]]; then
-    zpe-log "[error] Could not find writable $name.$ext, and $name is not registered"
+  if [[ ! -r $dir/$name.env ]]; then
+    zpe-log "[error] $name is not registered"
     return 1
+  elif [[ -e $dir/$name.$ext ]] && [[ ! -w $dir/$name.$ext ]]; then
+    zpe-log "[warning] Not editing explicitly readonly $name.$ext"
+    return 2
+  else
+    ${EDITOR:-vi} $dir/$name.$ext
   fi
-  ${EDITOR:-vi} $dir/$name.$ext
 }
