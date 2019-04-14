@@ -1,0 +1,43 @@
+#!/usr/bin/env zunit
+
+@setup {
+  f() {
+    echo TEST > $1
+  }
+  EDITOR=f
+}
+
+@test 'Edit-Sanity' {
+  # if a project isn't registered, -edit should fail
+  run zpe-edit invalid
+  assert $state equals 1
+}
+
+@test 'Edit' {
+  touch $ZPE_DIR/a.env
+
+  run zpe-edit a
+  run cat $ZPE_DIR/a.up
+  assert $output same_as TEST
+
+  run zpe-edit a test
+  run cat $ZPE_DIR/a.test
+  assert $output same_as TEST
+
+  rm -f $ZPE_DIR/a.{env,up}
+}
+
+@test 'Edit-Staticify' {
+  touch $ZPE_DIR/a.{env,static}
+  echo NOTEST > $ZPE_DIR/a.static
+  chmod -w $ZPE_DIR/a.static
+
+  run zpe-edit a static
+  assert $state equals 2
+
+  run cat $ZPE_DIR/a.static
+  assert $output same_as NOTEST
+
+  chmod +w $ZPE_DIR/a.static
+  rm -f $ZPE_DIR/a.{env,static}
+}
