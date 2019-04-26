@@ -18,7 +18,7 @@ zpe() {
     edit) zpe-edit $@ ;;
     exec) zpe-exec $@ ;;
     load) zpe-load $@ ;;
-    ls|list) zpe-list ;;
+    ls|list) zpe-list $@ ;;
     mv|move) zpe-move $@ ;;
     new) zpe-new  $@ ;;
     rm) zpe-remove $@ ;;

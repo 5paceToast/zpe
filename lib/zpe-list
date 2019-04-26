@@ -1,5 +1,11 @@
 # lists all the known projects
+# $1: optional project name, lists current files
 zpe-list() {
-  projects=( $ZPE_DIR/*.env(:t:r) )
-  print -l $projects
+  if [[ -z $1 ]]
+  then
+    output=( $ZPE_DIR/*.env(:t:r) )
+  else
+    output=( $ZPE_DIR/$1.*(:t)  )
+  fi
+  print -l $output
 }
