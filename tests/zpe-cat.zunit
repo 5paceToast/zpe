@@ -1,0 +1,43 @@
+#!/usr/bin/env zunit
+
+@setup {
+  echo 'a_dir=value_dir' > $ZPE_DIR/a.env
+  echo 'a_action' > $ZPE_DIR/a.up
+  echo 'b_action' > $ZPE_DIR/b.up
+}
+
+@teardown {
+  rm -f $ZPE_DIR/a.{env,up}
+  rm -f $ZPE_DIR/b.up
+}
+
+@test 'Cat-Arg-Missing' {
+  run zpe-cat
+  assert $state equals 1
+
+  run zpe-cat foo
+  assert $state equals 1
+}
+
+@test 'Cat-Empty' {
+  run zpe-cat c env
+  assert $state equals 2
+}
+
+@test 'Cat-Project-Missing' {
+  run zpe-cat b up
+  assert $state equals 2
+}
+
+@test 'Cat-File-Missing' {
+  run zpe-cat a down
+  assert $state equals 3
+}
+
+@test 'Cat-Output' {
+  run zpe-cat a env
+  assert $output same_as 'a_dir=value_dir'
+
+  run zpe-cat a up
+  assert $output same_as 'a_action'
+}
