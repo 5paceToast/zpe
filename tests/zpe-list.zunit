@@ -2,10 +2,12 @@
 
 @setup {
     touch $ZPE_DIR/{a,b}.env
+    touch $ZPE_DIR/b.up
 }
 
 @teardown {
     rm -f $ZPE_DIR/{a,b}.env
+    rm -f $ZPE_DIR/b.up
 }
 
 @test 'List-Single' {
@@ -17,6 +19,15 @@
     run zpe-list
     assert ${lines[1]} equals 'a'
     assert ${lines[2]} equals 'b'
+}
+
+@test 'List-Sub' {
+    run zpe-list a
+    assert ${lines[1]} same_as 'a.env'
+
+    run zpe-list b
+    assert ${lines[1]} same_as 'b.env'
+    assert ${lines[2]} same_as 'b.up'
 }
 
 # vim: ft=zsh
