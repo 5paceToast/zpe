@@ -51,6 +51,10 @@ Lists the projects in their "callable" form.
 Usually sorted, but not guaranteed to be such.
 If an argument is provided, it takes that to be a project name and lists the files under that project (e.g "up" and "down").
 
+`zpe cp|copy`::
+Copies project from argument 1 to argument 2.
+Best effort to translate variable names.
+
 `zpe mv|move`::
 Renames project from argument 1 to argument 2.
 Best effort to translate variable names.
