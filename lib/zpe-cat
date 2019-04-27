@@ -1,0 +1,17 @@
+# prints the contents of a given project files
+# $1: project
+# $2: suffix
+zpe-cat() {
+  [[ $# -ge 2 ]] || return 1
+  if [[ ! -f $ZPE_DIR/$1.env ]]
+  then # project doesn't exist
+    zpe-log "[error] project $1 is not registered"
+    return 2
+  elif [[ ! -r $ZPE_DIR/$1.$2 ]]
+  then # file doesn't exist
+    zpe-log "[error] could not open $1.$2 for reading"
+    return 3
+  else
+    cat $ZPE_DIR/$1.$2
+  fi
+}
