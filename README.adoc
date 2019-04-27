@@ -48,8 +48,8 @@ Example: `zpe load tzsh down`
 
 `zpe ls|list`::
 Lists the projects in their "callable" form.
-Does not take any arguments.
 Usually sorted, but not guaranteed to be such.
+If an argument is provided, it takes that to be a project name and lists the files under that project (e.g "up" and "down").
 
 `zpe mv`::
 
