@@ -1,0 +1,30 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: alpine
+  commands:
+  - apk add --no-cache make zsh
+  - make
+
+- name: test
+  image: alpine
+  commands:
+  - apk add --no-cache make zsh
+  - make test
+
+- name: deploy
+  image: plugins/s3
+  settings:
+    source: zpe.zwc
+    target: /
+    bucket: droneio
+    access_key: droneio
+    secret_key:
+      from_secret: s3_key
+    path_style: true
+    endpoint: https://minio.toastin.space
+  when:
+    event:
+      - push
