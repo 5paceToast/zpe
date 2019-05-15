@@ -11,7 +11,7 @@ steps:
 - name: test
   image: alpine
   commands:
-  - apk add --no-cache make zsh
+  - apk add --no-cache make ncurses zsh
   - make test
 
 - name: deploy
