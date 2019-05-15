@@ -4,6 +4,8 @@ name: default
 steps:
 - name: build
   image: alpine
+  environment:
+    TERM: dumb
   commands:
   - apk add --no-cache make zsh
   - make
