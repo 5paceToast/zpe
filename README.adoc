@@ -1,4 +1,14 @@
 = Z Project Environments
+Chloe Kudryavtsev <toast@toastin.space>
+
+:repo: https://github.com/5paceToast
+ifdef::env-github[]
+:status:
+endif::[]
+
+ifdef::status[]
+image:https://cloud.drone.io/api/badges/5paceToast/zpe/status.svg[Build Status (Drone), link={repo}]
+endif::[]
 
 == A manager for your messy projects
 
