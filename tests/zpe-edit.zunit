@@ -28,6 +28,8 @@
 }
 
 @test 'Edit-Staticify' {
+  [[ $(id -u) -eq 0 ]] && skip 'Root ignores readonly'
+
   touch $ZPE_DIR/a.{env,static}
   echo NOTEST > $ZPE_DIR/a.static
   chmod -w $ZPE_DIR/a.static

@@ -29,6 +29,8 @@
 }
 
 @test 'Remove-Readonly' {
+  [[ $(id -u) -eq 0 ]] && skip 'Root ignores readonly'
+
   run zpe-remove c
 
   # if the user sets it to readonly, they don't want it removed
