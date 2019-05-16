@@ -28,5 +28,7 @@ steps:
     path_style: true
     endpoint: https://minio.toastin.space
   when:
+    branch:
+    - master
     event:
-      - push
+    - push
