@@ -1,13 +1,14 @@
 = Z Project Environments
 Chloe Kudryavtsev <toast@toastin.space>
 
+:build: https://cloud.drone.io/5paceToast/zpe
 :repo: https://github.com/5paceToast
 ifdef::env-github[]
 :status:
 endif::[]
 
 ifdef::status[]
-image:https://cloud.drone.io/api/badges/5paceToast/zpe/status.svg[Build Status (Drone), link={repo}]
+image:https://cloud.drone.io/api/badges/5paceToast/zpe/status.svg[Build Status (Drone), link={build}]
 endif::[]
 
 == A manager for your messy projects
