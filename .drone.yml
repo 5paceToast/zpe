@@ -21,8 +21,8 @@ steps:
   settings:
     source: zpe.zwc
     target: /
-    bucket: droneio
-    access_key: droneio
+    bucket: droneci
+    access_key: droneci
     secret_key:
       from_secret: s3_key
     path_style: true
