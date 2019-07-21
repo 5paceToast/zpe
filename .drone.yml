@@ -26,7 +26,7 @@ steps:
     secret_key:
       from_secret: s3_key
     path_style: true
-    endpoint: https://minio.toastin.space
+    endpoint: https://minio.toast.cafe
   when:
     branch:
     - master
