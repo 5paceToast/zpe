@@ -20,9 +20,9 @@ steps:
   image: plugins/s3
   settings:
     source: zpe.zwc
-    target: /
-    bucket: droneci
-    access_key: droneci
+    target: /$$DRONE_REPO_NAME/
+    bucket: cicd
+    access_key: cicd
     secret_key:
       from_secret: s3_key
     path_style: true
